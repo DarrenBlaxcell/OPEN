@@ -1,0 +1,31 @@
+/*
+ * initialize the serial connection
+ */
+void setup()
+{
+  Serial.begin(9600);  //Start the serial connection 
+                       //to view the temperature open the serial monitor
+}
+int twoSeconds = 0; 
+void loop() 
+{
+ //getting the voltage reading from the temperature sensor
+ int reading1  = analogRead(0);  
+ int reading2  = analogRead(1); 
+//conversion from reading to voltage
+ float voltage1 = reading1 * 5.0;
+ voltage1 /= 1024.0; 
+ //converting from 10 mv per degree with 500 mV offset
+ float temp1 = (voltage1 - 0.5) * 100 ;  
+ 
+ float voltage2 = reading2 * 5.0;
+ voltage2 /= 1024.0; 
+ float temp2 = (voltage2 - 0.5) * 100 ;
+ twoSeconds++;
+ //comma separated output
+ Serial.print(twoSeconds);Serial.print(" , ");
+ Serial.print(temp1);Serial.print(" , ");
+ Serial.print(temp2);Serial.print("\n");
+ //waiting a 2 seconds
+ delay(2000);                  
+}
